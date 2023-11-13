@@ -1,7 +1,7 @@
 {
   "name": "cypress-allure-example",
   "version": "1.0.0",
-  "description": "a cypress x allure example",
+  "description": "a cypress x allure example, including a yaml file and slack-webhook integration",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
