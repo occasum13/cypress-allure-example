@@ -1,0 +1,32 @@
+{
+  "name": "cypress-allure-example",
+  "version": "1.0.0",
+  "description": "a cypress x allure example",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress-test": "npx cypress run",
+    "allure-test": "npx cypress run --spec cypress/e2e/api --env allure=true"
+  },
+  "keywords": [
+    "cypress",
+    "allure"
+  ],
+  "author": "João G (@occasum13 on github)",
+  "license": "ISC",
+  "devDependencies": {
+    "@shelex/cypress-allure-plugin": "^2.37.0",
+    "allure-commandline": "^2.22.0",
+    "axios": "^1.3.5",
+    "cypress": "12.14.0",
+    "cypress-json-results": "^1.2.1",
+    "cypress-postgresql": "^1.0.8",
+    "dotenv": "^10.0.0",
+    "eslint": "^8.31.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "faker-br": "^0.4.1",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7",
+    "prettier": "^2.8.7"
+  }
+}

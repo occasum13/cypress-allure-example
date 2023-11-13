@@ -1,0 +1,61 @@
+#this is your yaml file. 
+
+#the first step will do a npm i, followed by the script allure-test, the env: line will grab the values from gcp secrets if you've set it correctly
+   - name: your/image
+    id: Run Test and Generate Allure-Result
+    entrypoint: bash
+    args:
+      - "-c"
+      - |
+        npm install
+        npm run allure-test
+    env:
+      - "DB_USER=${_DB_USER}"
+      - "DB_PASSWORD=${_DB_PASSWORD}"
+      - "DB_HOST=${_DB_HOST}"
+      - "DB_DATABASE=${_DB_DATABASE}"
+    allow_failure: true
+
+#the second step will generate the report from allure-results folder on the vm and clean the folder if it has anything previous from this run
+  - name: your/image
+    id: Generate Allure-Report
+    entrypoint: bash
+    args:
+      - "-c"
+      - |
+        allure generate allure-results --clean -o allure-report
+
+#the third step will grab the current date_time, echo it in a file and pass it to lib/slack.js in order to report it correctly to the slack channel and also create the path for gcp bucket
+  - name: google/cloud-sdk
+    id: Upload Allure-Report to the Bucket
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        current_date_time=$(date '+%Y-%m-%d/%H:%M:%S')
+        echo "$current_date_time" >> /workspace/current_date_time
+        gsutil -m cp -r /workspace/allure-report/* gs://your-company-folder/relatory-qa/your-repo-name/$current_date_time/allure-report/
+
+#this will grab the date_time from the step above and run slackNotify with some dinamic infos from gcp trigger
+  - name: gcr.io/cloud-builders/npm
+    id: Notify the Slack Channel
+    entrypoint: bash
+    args:
+      - "-c"
+      - |
+        export DATE_TIME=$(cat /workspace/current_date_time)
+        npm run slackNotify
+    env:
+      - 'HTML_PATH=${_HTML_PATH}'
+      - 'GCS_BUCKET=${_GCS_BUCKET}'
+      - 'REPORT_FOLDER=${_REPORT_FOLDER}'
+      - 'WEBHOOK=${_WEBHOOK}'
+      - 'PROJECT_ID=${PROJECT_ID}'
+      - 'BUILD_ID=${BUILD_ID}'
+      - 'REPO_NAME=${REPO_NAME}'
+      - 'BRANCH_NAME=${BRANCH_NAME}'
+      - 'COMMIT_SHA=${SHORT_SHA}'
+
+timeout: 60000s
+
+

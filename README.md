@@ -14,21 +14,25 @@ Prerequisites
     Installation link for allure (https://docs.qameta.io/allure/)
     Clone the project on your preference directory and run npm install
 
+For GCP Pipeline CI/CD:
+    You need to create a dockerhub image containing Node.JS (NODE_VERSION=12.18.3)^, Yarn (YARN_VERSION=1.22.4)^ and Java (JAVA_VERSION=8.0.352-amzn) for yaml steps 1 and 2.
+    You might need some extra steps above those first ones if you need proxy connections and stuff.
+
 Structure
 
     Cypress
         Fixtures(Folder with default cypress file)
-        e2e(Folder with API directories)
+        e2e(Folder with API/UI directories)
         Screenshots(Folder where screenshots of the tests execution are stored)
-        Support(Folder with command files for nps-raimundo-api API)
+        Support(Folder with command files)
         Videos(Folder where videos of the tests execution are stored)
         node_modules(Dowloaded automatically on npm install)
-        devops(Folder with ci for nps-raimundo-api)
-        output(Folder containing an array of cypress errors)
+        devops(Folder with ci)
+        output(Folder containing an array of cypress errors which will be created/cleaned automatically when proper scripts run locally/vm)
 
 How to run
 
-    Open the terminal service after running your proxy and setting up your .env correctly
+    Open the terminal service after running your proxy and setting up your .env/gcp secrets correctly
 
     Access the directory and run the tests with the command below:
         Use the command npm run allure-test for complete headless execution with allure
