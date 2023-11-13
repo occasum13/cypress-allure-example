@@ -1,6 +1,6 @@
 cypress-allure-example
 
-    This project aims to serve as an example for cypress-alure report testing
+    This project aims to serve as an example for cypress-alure report testing including slack integration for dynamic reports and yaml example for ci/cd gcp pipeline
 
 Techs used
 
