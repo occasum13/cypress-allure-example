@@ -3,7 +3,6 @@ Automated testing
 
     This project aims to serve as an example for cypress-alure report testing
 
-alt text
 Techs used
 
 JavaScript Cypress
