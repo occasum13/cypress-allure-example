@@ -1,11 +1,11 @@
 cypress-allure-example
-Automated testing
 
     This project aims to serve as an example for cypress-alure report testing
 
 Techs used
 
 JavaScript Cypress
+
 Prerequisites
 
     Have the node, cypress(12.14.0 or older for allure reports, + scoop, java and allure itself), installed on the machine
